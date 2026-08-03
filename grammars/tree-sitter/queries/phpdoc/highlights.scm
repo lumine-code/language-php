@@ -11,8 +11,8 @@
 (variable_name) @variable.other.phpdoc.php
 (uri) @markup.underline.link.phpdoc.php
 
-(inline_tag "{" @punctation.definition.tag.begin.brace.curly.phpdoc.php)
-(inline_tag "}" @punctation.definition.tag.end.brace.curly.phpdoc.php)
+(inline_tag "{" @punctuation.definition.tag.begin.bracket.curly.phpdoc.php)
+(inline_tag "}" @punctuation.definition.tag.end.bracket.curly.phpdoc.php)
 
 (array_type "<" @punctuation.definition.generic.begin.bracket.angle.phpdoc.php)
 (array_type ">" @punctuation.definition.generic.end.bracket.angle.phpdoc.php)
