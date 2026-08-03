@@ -8,6 +8,10 @@ PHP language support.
 - **Syntax highlighting**: full grammar coverage for PHP files, including embedded HTML and PHPDoc.
 - **Snippets**: shortcuts for common PHP constructs.
 
+## Installation
+
+To install `language-php` search for _language-php_ in the Install pane of the Lumine settings or run `lumine --install lumine-code/language-php`.
+
 ## Services
 
 - **hyperlink.injection** (`^1.0.0`): consumed to highlight URLs inside PHP files as clickable links.
