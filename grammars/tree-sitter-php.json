@@ -1,6 +1,6 @@
 {
   "scopeName": "source.php",
-  "type": "modern-tree-sitter",
+  "type": "tree-sitter",
   "parser": "tree-sitter-php",
   // Give it a precise injectionRegex that won't get accidentally matched with
   // anything.

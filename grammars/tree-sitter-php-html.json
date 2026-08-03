@@ -1,7 +1,7 @@
 {
   "name": "PHP",
   "scopeName": "text.html.php",
-  "type": "modern-tree-sitter",
+  "type": "tree-sitter",
   "parser": "tree-sitter-php",
   "injectionRegex": "php|PHP",
   // The TextMate grammar has an elaborate `firstLineMatch` pattern defined with
