@@ -4,7 +4,7 @@
   // NOTE: While the PHP manual documents the range of valid identifiers as [a-z_\x{7f}-\x{ff}][a-z0-9_\x{7f}-\x{ff}]*,
   // due to a quirk with how PHP parses identifiers it looks at each _byte_ rather than _characters_.
   // Therefore while سن is technically not in that range, its hex representation is `d8 b3 d9 86`,
-  // and PHP recognizes it as a valid identifier. To handle this behavior in Atom, we use the modified regex
+  // and PHP recognizes it as a valid identifier. To handle this behavior, we use the modified regex
   // [a-z_\x{7f}-\x{10ffff}][a-z0-9_\x{7f}-\x{10ffff}]*.
   // See https://github.com/atom/language-php/issues/301.
   "scopeName": "source.php",
