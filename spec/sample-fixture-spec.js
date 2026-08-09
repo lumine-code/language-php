@@ -7,13 +7,13 @@ const path = require("path");
 
 describe("PHP sample fixtures", () => {
   beforeEach(async () => {
-    await atom.packages.activatePackage("language-html");
-    await atom.packages.activatePackage("language-php");
-    atom.config.set("language.useTreeSitterParsers", true);
+    await lumine.packages.activatePackage("language-html");
+    await lumine.packages.activatePackage("language-php");
+    lumine.config.set("language.useTreeSitterParsers", true);
   });
 
   it("parses sample.php without error", async () => {
-    const editor = await atom.workspace.open(path.join(__dirname, "fixtures", "sample.php"));
+    const editor = await lumine.workspace.open(path.join(__dirname, "fixtures", "sample.php"));
     const languageMode = editor.getBuffer().getLanguageMode();
     await languageMode.ready;
 

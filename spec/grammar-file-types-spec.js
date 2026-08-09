@@ -23,8 +23,8 @@ describe("PHP grammar file types", () => {
   let grammar;
 
   beforeEach(async () => {
-    await atom.packages.activatePackage("language-php");
-    grammar = atom.grammars.grammarForScopeName("text.html.php");
+    await lumine.packages.activatePackage("language-php");
+    grammar = lumine.grammars.grammarForScopeName("text.html.php");
   });
 
   it("still claims the Drupal types", () => {
@@ -35,8 +35,8 @@ describe("PHP grammar file types", () => {
 
   it("scores a contested file higher with PHP contents than without", () => {
     for (const filePath of CONTESTED) {
-      const withPhp = atom.grammars.getGrammarScore(grammar, filePath, DRUPAL);
-      const withShell = atom.grammars.getGrammarScore(grammar, filePath, SHELL);
+      const withPhp = lumine.grammars.getGrammarScore(grammar, filePath, DRUPAL);
+      const withShell = lumine.grammars.getGrammarScore(grammar, filePath, SHELL);
       expect(withPhp).toBeGreaterThan(withShell);
     }
   });
@@ -49,8 +49,8 @@ describe("PHP grammar file types", () => {
     // they also carry +0.1 for Tree-sitter and +0.01 for a grammar the spec
     // host does not consider bundled.
     for (const filePath of CONTESTED) {
-      const matching = atom.grammars.getGrammarScore(grammar, filePath, "; <?php echo 1;");
-      const missing = atom.grammars.getGrammarScore(grammar, filePath, "umask 022");
+      const matching = lumine.grammars.getGrammarScore(grammar, filePath, "; <?php echo 1;");
+      const missing = lumine.grammars.getGrammarScore(grammar, filePath, "umask 022");
       expect(matching - missing).toBeCloseTo(0.1, 5);
     }
   });
@@ -59,7 +59,7 @@ describe("PHP grammar file types", () => {
     // The penalty applies to every file this grammar scores, not just the
     // contested ones, so a pure-HTML `.php` template takes it too. Nothing else
     // claims `php`, so it must still come out ahead of the null grammar.
-    expect(atom.grammars.selectGrammar("/tmp/x.php", "<h1>no php here</h1>\n").scopeName).toBe(
+    expect(lumine.grammars.selectGrammar("/tmp/x.php", "<h1>no php here</h1>\n").scopeName).toBe(
       "text.html.php",
     );
   });

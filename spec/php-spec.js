@@ -2,12 +2,12 @@ describe("PHP grammar", function () {
   let grammar = null;
 
   beforeEach(function () {
-    atom.config.set("language.useTreeSitterParsers", false);
+    lumine.config.set("language.useTreeSitterParsers", false);
 
-    waitsForPromise(() => atom.packages.activatePackage("language-php"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-php"));
 
     runs(function () {
-      grammar = atom.grammars.grammarForScopeName("source.php");
+      grammar = lumine.grammars.grammarForScopeName("source.php");
     });
   });
 
@@ -12057,7 +12057,7 @@ interface Test {
   });
 
   it("should tokenize embedded SQL in a string", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-sql"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-sql"));
 
     return runs(function () {
       const delimsByScope = {
@@ -12864,7 +12864,7 @@ GITHUB;\
   });
 
   it("should tokenize a heredoc with embedded HTML and interpolation correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-html"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-html"));
 
     runs(function () {
       const lines = grammar.tokenizeLines(`\
@@ -13034,7 +13034,7 @@ HTML;\
   });
 
   it("should tokenize a nowdoc with embedded HTML and interpolation correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-html"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-html"));
 
     return runs(function () {
       const lines = grammar.tokenizeLines(`\
@@ -13212,7 +13212,7 @@ GITHUB;\
   });
 
   it("should tokenize a heredoc with embedded XML correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-xml"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-xml"));
 
     return runs(function () {
       const lines = grammar.tokenizeLines(`\
@@ -13291,7 +13291,7 @@ XML;\
   });
 
   it("should tokenize a nowdoc with embedded XML correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-xml"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-xml"));
 
     return runs(function () {
       const lines = grammar.tokenizeLines(`\
@@ -13388,7 +13388,7 @@ XML;\
   });
 
   it("should tokenize a heredoc with embedded SQL correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-sql"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-sql"));
 
     return runs(function () {
       const lines = grammar.tokenizeLines(`\
@@ -13488,7 +13488,7 @@ SQL;\
   });
 
   it("should tokenize a nowdoc with embedded SQL correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-sql"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-sql"));
 
     return runs(function () {
       const lines = grammar.tokenizeLines(`\
@@ -13606,7 +13606,7 @@ SQL;\
   });
 
   it("should tokenize a heredoc with embedded DQL correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-sql"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-sql"));
 
     return runs(function () {
       const lines = grammar.tokenizeLines(`\
@@ -13706,7 +13706,7 @@ DQL;\
   });
 
   it("should tokenize a nowdoc with embedded DQL correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-sql"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-sql"));
 
     return runs(function () {
       const lines = grammar.tokenizeLines(`\
@@ -13824,7 +13824,7 @@ DQL;\
   });
 
   it("should tokenize a heredoc with embedded javascript correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-javascript"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-javascript"));
 
     return runs(function () {
       const lines = grammar.tokenizeLines(`\
@@ -14016,7 +14016,7 @@ JS;\
   });
 
   it("should tokenize a nowdoc with embedded javascript correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-javascript"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-javascript"));
 
     return runs(function () {
       const lines = grammar.tokenizeLines(`\
@@ -14244,7 +14244,7 @@ JS;\
   });
 
   it("should tokenize a heredoc with embedded json correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-json"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-json"));
 
     return runs(function () {
       const lines = grammar.tokenizeLines(`\
@@ -14365,7 +14365,7 @@ JSON;\
   });
 
   it("should tokenize a nowdoc with embedded json correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-json"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-json"));
 
     return runs(function () {
       const lines = grammar.tokenizeLines(`\
@@ -14504,7 +14504,7 @@ JSON;\
   });
 
   it("should tokenize a heredoc with embedded css correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-css"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-css"));
 
     return runs(function () {
       const lines = grammar.tokenizeLines(`\
@@ -14583,7 +14583,7 @@ CSS;\
   });
 
   it("should tokenize a nowdoc with embedded css correctly", function () {
-    waitsForPromise(() => atom.packages.activatePackage("language-css"));
+    waitsForPromise(() => lumine.packages.activatePackage("language-css"));
 
     return runs(function () {
       const lines = grammar.tokenizeLines(`\
