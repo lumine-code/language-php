@@ -1,0 +1,33 @@
+{
+  // No `name`: this grammar is an injection target, never a grammar you pick
+  // for a file, and `grammar-list-view` lists everything that has one. The two
+  // siblings omit it for the same reason.
+  //
+  // `tree-sitter-php` starts in text mode and only enters PHP at a `<?php`, so
+  // every range injected into `source.php` has to carry its own delimiters —
+  // see `interpret()` in `lib/main.js`. A template language has no delimiters
+  // to carry: `{{ $user->name }}` and `@if ($x)` are bare expressions. That is
+  // what this dialect is for.
+  "scopeName": "source.php.only",
+  "type": "tree-sitter",
+  "parser": "tree-sitter-php-only",
+  // `text.html.php` carries an unanchored `php|PHP`, which already matches
+  // "php_only" at length 3, and the longest match wins. Anchored, and longer,
+  // so it takes the string outright and claims nothing else.
+  "injectionRegex": "^(php-only|php_only)$",
+  "treeSitter": {
+    "parserSource": "github:tree-sitter/tree-sitter-php/php_only#v0.24.2",
+    "wasmBuildTool": "tree-sitter-cli#v0.26.10",
+    // A distinct basename is load-bearing: a build fans out to every config
+    // sharing both `parserSource` and the wasm's basename, so reusing
+    // `tree-sitter-php.wasm` would let one dialect's build clobber the other's.
+    "grammar": "tree-sitter/tree-sitter-php-only.wasm",
+    // Deliberately the same four files `tree-sitter-php.json` loads. The two
+    // dialects are one language; they differ only in whether `text` may sit
+    // between statements, and no query mentions `text`.
+    "highlightsQuery": "tree-sitter/queries/highlights.scm",
+    "tagsQuery": "tree-sitter/queries/tags.scm",
+    "foldsQuery": "tree-sitter/queries/folds.scm",
+    "indentsQuery": "tree-sitter/queries/indents.scm"
+  }
+}
