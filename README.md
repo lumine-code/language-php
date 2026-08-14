@@ -10,12 +10,12 @@ PHP language support.
 
 ## Installation
 
-To install `language-php` search for _language-php_ in the Install pane of the Lumine settings or run `lumine --install lumine-code/language-php`.
+To install `language-php` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/language-php`.
 
 ## Services
 
-- **hyperlink.injection** (`^1.0.0`): consumed to highlight URLs inside PHP files as clickable links.
-- **todo.injection** (`^1.0.0`): consumed to highlight `TODO`-style markers inside comments.
+- `hyperlink.injection`: consumed to highlight URLs inside PHP files as clickable links.
+- `todo.injection`: consumed to highlight `TODO`-style markers inside comments.
 
 ## Contributing
 
