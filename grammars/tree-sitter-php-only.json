@@ -17,7 +17,7 @@
   "injectionRegex": "^(php-only|php_only)$",
   "treeSitter": {
     "parserSource": "github:tree-sitter/tree-sitter-php/php_only#v0.24.2",
-    "wasmBuildTool": "tree-sitter-cli#v0.26.10",
+    "wasmBuildTool": "tree-sitter-cli#v0.26.13",
     // A distinct basename is load-bearing: a build fans out to every config
     // sharing both `parserSource` and the wasm's basename, so reusing
     // `tree-sitter-php.wasm` would let one dialect's build clobber the other's.
