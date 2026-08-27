@@ -1,6 +1,6 @@
 {
   ".source.php": {
-    "language": {
+    "editor": {
       "commentStart": "// ",
       "commentDelimiters": {
         "line": "//",
@@ -3343,18 +3343,18 @@
     }
   },
   ".source.php .meta.array.php": {
-    "language": {
+    "editor": {
       "decreaseIndentPattern": "^(.*\\*/)?\\s*(\\)+)"
     }
   },
   ".source.php:not(.string)": {
-    "language": {
+    "editor": {
       "increaseIndentPattern": "({(?!.+}).*|\\(|\\[|((else)?if|else|for(each)?|while|switch).*:)\\s*(/[/*].*)?$",
       "decreaseIndentPattern": "^(.*\\*/)?\\s*(}|(\\)+([;,]|\\s*{))|(\\]\\)*([;,]|$))|else:|((end(if|for(each)?|while|switch));))"
     }
   },
   ".text.html.php": {
-    "language": {
+    "editor": {
       "nonWordCharacters": "$/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-"
     }
   }
