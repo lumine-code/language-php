@@ -400,11 +400,14 @@
   (#set! capture.final true))
 
 ; The "$foo" in `function bar($foo) {`.
-(formal_parameters
-  (simple_parameter
-    (variable_name
-      "$" @punctuation.definition.variable.php
-    ) @variable.parameter.php))
+((variable_name) @variable.parameter.php
+  (#is? test.typeAt "parent simple_parameter")
+  (#is? test.typeAt "parent.parent formal_parameters"))
+
+("$" @punctuation.definition.variable.php
+  (#is? test.typeAt "parent variable_name")
+  (#is? test.typeAt "parent.parent simple_parameter")
+  (#is? test.typeAt "parent.parent.parent formal_parameters"))
 
 ((variable_name
   ("$" @punctuation.definition.variable.php)
@@ -669,9 +672,12 @@
 ; PUNCTUATION
 ; ===========
 
-(formal_parameters
-  "(" @punctuation.definition.parameters.begin.bracket.round.php
-  ")"@punctuation.definition.parameters.end.bracket.round.php
+("(" @punctuation.definition.parameters.begin.bracket.round.php
+  (#is? test.childOfType "formal_parameters")
+  (#set! capture.final true))
+
+(")" @punctuation.definition.parameters.end.bracket.round.php
+  (#is? test.childOfType "formal_parameters")
   (#set! capture.final true))
 
 "{" @punctuation.definition.block.begin.bracket.curly.php
