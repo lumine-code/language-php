@@ -27,4 +27,24 @@ describe("PHP Tree-sitter highlighting", () => {
       "punctuation.definition.parameters.end.bracket.round.php",
     );
   });
+
+  it("highlights array/list syntax and enum cases with local captures", async () => {
+    const source = `enum Choice { case Alpha; }
+$array = array(1, 2);
+list($first, $second) = $array;`;
+    const editor = await lumine.workspace.open("containers.php");
+    editor.setText(source);
+    editor.setGrammar(lumine.grammars.grammarForScopeName("source.php.only"));
+    await editor.getBuffer().languageMode.ready;
+
+    const lines = source.split("\n");
+    const scopesAt = (row, column) =>
+      editor.scopeDescriptorForBufferPosition([row, column]).getScopesArray();
+    expect(scopesAt(0, lines[0].indexOf("Alpha"))).toContain("constant.other.enum.php");
+    expect(scopesAt(1, lines[1].lastIndexOf("array"))).toContain(
+      "support.function.builtin.array.php",
+    );
+    expect(scopesAt(2, 0)).toContain("support.function.builtin.list.php");
+    expect(scopesAt(2, 4)).toContain("punctuation.definition.parameters.begin.bracket.round.php");
+  });
 });

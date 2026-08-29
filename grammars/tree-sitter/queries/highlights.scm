@@ -9,14 +9,21 @@
 
 ; There are lots of constructs that look like ordinary function calls but are
 ; actually special language statements.
-(array_creation_expression
-  "array" @support.function.builtin.array.php
-  "(" @punctuation.definition.parameters.begin.bracket.round.php
-  ")" @punctuation.definition.parameters.end.bracket.round.php)
+(("array" @support.function.builtin.array.php)
+  (#is? test.childOfType array_creation_expression))
+(("(" @punctuation.definition.parameters.begin.bracket.round.php)
+  (#is? test.childOfType array_creation_expression))
+((")" @punctuation.definition.parameters.end.bracket.round.php)
+  (#is? test.childOfType array_creation_expression)
+  (#is? test.last true))
 
-(list_literal "list" @support.function.builtin.list.php
-  "(" @punctuation.definition.parameters.begin.bracket.round.php
-  ")" @punctuation.definition.parameters.end.bracket.round.php)
+(("list" @support.function.builtin.list.php)
+  (#is? test.childOfType list_literal))
+(("(" @punctuation.definition.parameters.begin.bracket.round.php)
+  (#is? test.childOfType list_literal))
+((")" @punctuation.definition.parameters.end.bracket.round.php)
+  (#is? test.childOfType list_literal)
+  (#is? test.last true))
 
 (unset_statement
   "unset" @support.function.unset.php
@@ -379,9 +386,9 @@
 (enum_declaration
   name: (name) @entity.name.type.enum.php)
 
-(enum_declaration_list
-  (enum_case
-    name: (name) @constant.other.enum.php))
+(enum_case
+  name: (name) @constant.other.enum.php
+  (#is? test.typeAt "parent.parent enum_declaration_list"))
 
 ; VARIABLES
 ; =========
