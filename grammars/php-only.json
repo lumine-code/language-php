@@ -14,20 +14,20 @@
   // `text.html.php` carries an unanchored `php|PHP`, which already matches
   // "php_only" at length 3, and the longest match wins. Anchored, and longer,
   // so it takes the string outright and claims nothing else.
-  "injectionRegex": "^(php-only|php_only)$",
+  "injectionNames": ["php-only", "php_only"],
   "treeSitter": {
     "parserSource": "github:tree-sitter/tree-sitter-php/php_only#v0.24.2",
     "wasmBuildTool": "tree-sitter-cli#v0.26.13",
     // A distinct basename is load-bearing: a build fans out to every config
     // sharing both `parserSource` and the wasm's basename, so reusing
-    // `tree-sitter-php.wasm` would let one dialect's build clobber the other's.
-    "grammar": "tree-sitter/tree-sitter-php-only.wasm",
-    // Deliberately the same four files `tree-sitter-php.json` loads. The two
+    // `php.wasm` would let one dialect's build clobber the other's.
+    "grammar": "php-only.wasm",
+    // Deliberately the same four files `php.json` loads. The two
     // dialects are one language; they differ only in whether `text` may sit
     // between statements, and no query mentions `text`.
-    "highlightsQuery": "tree-sitter/queries/highlights.scm",
-    "tagsQuery": "tree-sitter/queries/tags.scm",
-    "foldsQuery": "tree-sitter/queries/folds.scm",
-    "indentsQuery": "tree-sitter/queries/indents.scm"
+    "highlightsQuery": "php-shared-highlights.scm",
+    "tagsQuery": "php-shared-tags.scm",
+    "foldsQuery": "php-shared-folds.scm",
+    "indentsQuery": "php-shared-indents.scm"
   }
 }

@@ -1,6 +1,5 @@
 describe("PHP Tree-sitter highlighting", () => {
   beforeEach(async () => {
-    lumine.config.set("editor.useTreeSitterParsers", true);
     await lumine.packages.activatePackage("language-php");
   });
 

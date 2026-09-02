@@ -3342,17 +3342,6 @@
       ]
     }
   },
-  ".source.php .meta.array.php": {
-    "editor": {
-      "decreaseIndentPattern": "^(.*\\*/)?\\s*(\\)+)"
-    }
-  },
-  ".source.php:not(.string)": {
-    "editor": {
-      "increaseIndentPattern": "({(?!.+}).*|\\(|\\[|((else)?if|else|for(each)?|while|switch).*:)\\s*(/[/*].*)?$",
-      "decreaseIndentPattern": "^(.*\\*/)?\\s*(}|(\\)+([;,]|\\s*{))|(\\]\\)*([;,]|$))|else:|((end(if|for(each)?|while|switch));))"
-    }
-  },
   ".text.html.php": {
     "editor": {
       "nonWordCharacters": "$/\\()\"':,.;<>~!@#%^&*|+=[]{}`?-"

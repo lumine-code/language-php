@@ -9,7 +9,6 @@ describe("PHP sample fixtures", () => {
   beforeEach(async () => {
     await lumine.packages.activatePackage("language-html");
     await lumine.packages.activatePackage("language-php");
-    lumine.config.set("editor.useTreeSitterParsers", true);
   });
 
   it("parses sample.php without error", async () => {

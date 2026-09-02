@@ -3,28 +3,20 @@
   "scopeName": "text.html.php",
   "type": "tree-sitter",
   "parser": "tree-sitter-php",
-  "injectionRegex": "php|PHP",
-  // The TextMate grammar has an elaborate `firstLineMatch` pattern defined with
-  // Oniguruma; it catches hashbang syntax and complex vim/emacs modelines along
-  // with the typical `<?php` prefix.
-  //
-  // We can't compete with all that, but we can catch obvious instances of
-  // shebangs and `<?php`s. In fact, we must, or else the TextMate grammar will be
-  // ranked higher for certain files.
+  "injectionNames": ["php"],
+  // Catch obvious PHP shebangs and opening tags before extension scoring.
   "firstLineRegex": "^\\s*<\\?(?:php|PHP|=|\\s|$)|^\\#!.*(?:\\s|\\/)php\\d?",
   // `install` and `profile` are Drupal's, and language-shellscript claims both
   // too — for Arch install scripts and for `~/.profile`. The first-line rules
   // separate them only when the file opens with `<?php` or a shebang, and a
   // `.profile` is sourced rather than executed so it usually has neither. That
-  // left the two grammars on an identical score, decided by package activation
-  // order. A contentRegex is scored either way, +0.05 or -0.05, so it settles
-  // the pair in both directions. PHP is the sole claimant of every other type
-  // it lists, so the penalty costs it nothing elsewhere.
+  // leaves the two grammars on an identical score, decided by activation order.
+  // A contentRegex settles the pair in both directions.
   "contentRegex": "<\\?php",
   "treeSitter": {
     "parserSource": "github:tree-sitter/tree-sitter-php/php#v0.24.2",
     "wasmBuildTool": "tree-sitter-cli#v0.26.13",
-    "grammar": "tree-sitter/tree-sitter-php.wasm"
+    "grammar": "php.wasm"
   },
   "fileTypes": [
     "aw",

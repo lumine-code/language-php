@@ -8,8 +8,8 @@ const path = require("path");
 // grammar's other specs. LanguageLayer degrades to a placeholder instead, so
 // everything else stays green while highlighting is silently dead.
 //
-// It matters more here than in a single-grammar package: `tree-sitter-php.json`
-// and `tree-sitter-php-only.json` name the same four query files against two
+// It matters more here than in a single-grammar package: `php.json` and
+// `php-only.json` name the same four query files against two
 // different wasms, so a node type present in one dialect and absent from the
 // other breaks exactly one of them, and only this spec would say which.
 //
@@ -19,8 +19,7 @@ const path = require("path");
 
 // Four Tree-sitter configs: `text.html.php` (the mixed HTML+PHP root),
 // `source.php` (PHP between `<?php` delimiters), `source.php.only` (bare PHP,
-// for template languages) and the PHPDoc dialect. The two TextMate grammars
-// beside them are not counted.
+// for template languages) and the PHPDoc dialect.
 const PACKAGE_NAME = "language-php";
 const EXPECTED_GRAMMARS = 4;
 
@@ -29,14 +28,12 @@ describe(`${PACKAGE_NAME} Tree-sitter queries`, () => {
 
   beforeEach(async () => {
     jasmine.useRealClock();
-    await lumine.packages.activatePackage(PACKAGE_NAME);
+    const pack = await lumine.packages.activatePackage(path.resolve(__dirname, ".."));
 
     // Every bundled grammar is registered too; keep only this package's.
-    const packageDir = path.resolve(__dirname, "..");
-    grammars = lumine.grammars
-      .getGrammars({ includeTreeSitter: true })
+    grammars = pack.grammars
       .filter((grammar) => grammar.constructor.name === "TreeSitterGrammar")
-      .filter((grammar) => grammar.grammarFilePath?.startsWith(packageDir));
+      .filter((grammar) => grammar.packageName === PACKAGE_NAME);
   });
 
   it(`registers all ${EXPECTED_GRAMMARS} Tree-sitter grammar config(s)`, () => {

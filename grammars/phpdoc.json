@@ -2,11 +2,11 @@
   "scopeName": "comment.block.documentation.phpdoc.php",
   "type": "tree-sitter",
   "parser": "tree-sitter-phpdoc",
-  "injectionRegex": "^(phpdoc|PHPDoc)$",
+  "injectionNames": ["phpdoc"],
   "treeSitter": {
     "parserSource": "github:claytonrcarter/tree-sitter-phpdoc#v0.1.8",
     "wasmBuildTool": "tree-sitter-cli#v0.26.13",
-    "grammar": "tree-sitter/tree-sitter-phpdoc.wasm",
-    "highlightsQuery": "tree-sitter/queries/phpdoc/highlights.scm"
+    "grammar": "phpdoc.wasm",
+    "highlightsQuery": "phpdoc-highlights.scm"
   }
 }

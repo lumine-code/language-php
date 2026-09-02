@@ -4,7 +4,7 @@ PHP language support.
 
 ## Features
 
-- **Grammars**: provides Tree-sitter grammars built from [tree-sitter-php](https://github.com/tree-sitter/tree-sitter-php) and [tree-sitter-phpdoc](https://github.com/claytonrcarter/tree-sitter-phpdoc) and TextMate grammars derived from [atom/language-php](https://github.com/atom/language-php).
+- **Grammars**: provides Tree-sitter grammars built from [tree-sitter-php](https://github.com/tree-sitter/tree-sitter-php) and [tree-sitter-phpdoc](https://github.com/claytonrcarter/tree-sitter-phpdoc).
 - **Syntax highlighting**: full grammar coverage for PHP files, including embedded HTML and PHPDoc.
 - **Snippets**: shortcuts for common PHP constructs.
 
