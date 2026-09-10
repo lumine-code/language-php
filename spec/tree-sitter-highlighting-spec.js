@@ -35,7 +35,7 @@ describe("PHP Tree-sitter highlighting", () => {
   }
 
   it("keeps unbounded containers leaf-rooted and bounded parameters structural", () => {
-    const query = fs.readFileSync(highlightsPath, "utf8");
+    const query = fs.readFileSync(highlightsPath, "utf8").replaceAll("\r\n", "\n");
 
     expect(query).not.toMatch(/\((?:array_creation_expression|list_literal)\s*\n\s*"/);
     expect(query).toContain("(#is? test.childOfType array_creation_expression)");
