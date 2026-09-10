@@ -283,10 +283,10 @@
   (#set! capture.final true))
 
 ; In `use` lists, the "bar" in `Foo::bar` is a method, not a constant.
-(use_list
-  (_
-    (class_constant_access_expression (name) @support.other.function.method.php .)
-  )
+((name) @support.other.function.method.php
+  (#is? test.typeAt "parent class_constant_access_expression")
+  (#is? test.lastOfType true)
+  (#is? test.typeAt "parent.parent.parent use_list")
   (#set! capture.final true))
 
 ; The "Foo" and "bar" in `Foo::bar`.
@@ -387,8 +387,7 @@
   name: (name) @entity.name.type.enum.php)
 
 (enum_case
-  name: (name) @constant.other.enum.php
-  (#is? test.typeAt "parent.parent enum_declaration_list"))
+  name: (name) @constant.other.enum.php)
 
 ; VARIABLES
 ; =========
@@ -407,14 +406,12 @@
   (#set! capture.final true))
 
 ; The "$foo" in `function bar($foo) {`.
-((variable_name) @variable.parameter.php
-  (#is? test.typeAt "parent simple_parameter")
-  (#is? test.typeAt "parent.parent formal_parameters"))
+(simple_parameter
+  name: (variable_name) @variable.parameter.php)
 
-("$" @punctuation.definition.variable.php
-  (#is? test.typeAt "parent variable_name")
-  (#is? test.typeAt "parent.parent simple_parameter")
-  (#is? test.typeAt "parent.parent.parent formal_parameters"))
+(simple_parameter
+  name: (variable_name
+    "$" @punctuation.definition.variable.php))
 
 ((variable_name
   ("$" @punctuation.definition.variable.php)
@@ -449,18 +446,24 @@
 
 ; STRINGS
 
-(string
-  "'" @punctuation.definition.string.begin.php
-  (string_content)?
-  "'" @punctuation.definition.string.end.php) @string.quoted.single.php
+(string) @string.quoted.single.php
+("'" @punctuation.definition.string.begin.php
+  (#is? test.childOfType string)
+  (#is? test.first true))
+("'" @punctuation.definition.string.end.php
+  (#is? test.childOfType string)
+  (#is? test.last true))
 
-(encapsed_string
-  "\"" @punctuation.definition.string.begin.php
-  (string_content)?
-  "\"" @punctuation.definition.string.end.php) @string.quoted.double.php
+(encapsed_string) @string.quoted.double.php
+("\"" @punctuation.definition.string.begin.php
+  (#is? test.childOfType encapsed_string)
+  (#is? test.first true))
+("\"" @punctuation.definition.string.end.php
+  (#is? test.childOfType encapsed_string)
+  (#is? test.last true))
 
-(encapsed_string
-  (escape_sequence) @constant.character.escape.php)
+((escape_sequence) @constant.character.escape.php
+  (#is? test.childOfType encapsed_string))
 
 [(heredoc) (nowdoc)] @string.unquoted.heredoc.php
 
@@ -556,14 +559,16 @@
 ; ========
 
 ((comment) @comment.line.double-slash.php
-  (#match? @comment.line.double-slash.php "^//"))
+  (#match? @comment.line.double-slash.php "^//")
+  (#set! adjust.endBeforeFirstMatchOf "\\r?$"))
 
 ((comment) @punctuation.definition.comment.php
   (#match? @comment.line.double-slash.php "^//")
   (#set! adjust.startAndEndAroundFirstMatchOf "^//"))
 
 ((comment) @comment.line.number-sign.php
-  (#match? @comment.line.number-sign.php "^#"))
+  (#match? @comment.line.number-sign.php "^#")
+  (#set! adjust.endBeforeFirstMatchOf "\\r?$"))
 
 ((comment) @punctuation.definition.comment.php
   (#match? @punctuation.definition.comment.php "^#")
@@ -680,11 +685,11 @@
 ; ===========
 
 ("(" @punctuation.definition.parameters.begin.bracket.round.php
-  (#is? test.childOfType "formal_parameters")
+  (#is? test.childOfType formal_parameters)
   (#set! capture.final true))
 
 (")" @punctuation.definition.parameters.end.bracket.round.php
-  (#is? test.childOfType "formal_parameters")
+  (#is? test.childOfType formal_parameters)
   (#set! capture.final true))
 
 "{" @punctuation.definition.block.begin.bracket.curly.php
