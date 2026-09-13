@@ -3,7 +3,7 @@
   "scopeName": "text.html.php",
   "type": "tree-sitter",
   "parser": "tree-sitter-php",
-  "injectionNames": ["php"],
+  "injectionNames": ["html+php", "php-html"],
   // Catch obvious PHP shebangs and opening tags before extension scoring.
   "firstLineRegex": "^\\s*<\\?(?:php|PHP|=|\\s|$)|^\\#!.*(?:\\s|\\/)php\\d?",
   // `install` and `profile` are Drupal's, and language-shellscript claims both

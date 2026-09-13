@@ -59,17 +59,19 @@ describe(`${PACKAGE_NAME} Tree-sitter queries`, () => {
     expect(failures).toEqual([]);
   });
 
-  it("resolves the bare-PHP dialect from a template language's injection string", () => {
-    // Blade, and any other template grammar, reaches this parser by returning
-    // "php_only" from an injection point. `text.html.php` carries an unanchored
-    // `php|PHP` that already matches that string at length 3, and the longest
-    // match wins — so this asserts the anchored regex actually takes it.
-    for (const languageString of ["php_only", "php-only"]) {
+  it("routes bare and mixed PHP injection names to the matching dialects", () => {
+    // Blade reaches the bare parser through `php_only`; fenced Markdown reaches
+    // it through `php`, because a fence normally omits the opening PHP tag.
+    for (const languageString of ["php", "php_only", "php-only"]) {
       const grammar = lumine.grammars.treeSitterGrammarForLanguageString(languageString);
       expect(grammar?.scopeName).toBe("source.php.only");
     }
 
-    // And that widening it did not steal either sibling's string.
+    for (const languageString of ["html+php", "php-html"]) {
+      const grammar = lumine.grammars.treeSitterGrammarForLanguageString(languageString);
+      expect(grammar?.scopeName).toBe("text.html.php");
+    }
+
     expect(lumine.grammars.treeSitterGrammarForLanguageString("internal-php")?.scopeName).toBe(
       "source.php",
     );

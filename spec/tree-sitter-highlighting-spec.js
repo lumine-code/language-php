@@ -66,6 +66,15 @@ describe("PHP Tree-sitter highlighting", () => {
     );
   });
 
+  it("parses both bare and opening-tagged fenced PHP", async () => {
+    for (const source of ["$value = 1;", "<?php\n$value = 1;"]) {
+      await setUp(source);
+      expect(languageMode.tree.rootNode.hasError).toBe(false);
+      editor.destroy();
+      editor = null;
+    }
+  });
+
   it("highlights array/list syntax and enum cases with local captures", async () => {
     const source = `enum Choice { case Alpha; }
 $array = array(1, 2);
