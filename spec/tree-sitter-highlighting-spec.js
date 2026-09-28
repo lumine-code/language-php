@@ -22,7 +22,7 @@ describe("PHP Tree-sitter highlighting", () => {
     await languageMode.ready;
   }
 
-  function rawCaptures(startRow, endRow) {
+  async function rawCaptures(startRow, endRow) {
     const options =
       startRow == null
         ? undefined
@@ -30,8 +30,8 @@ describe("PHP Tree-sitter highlighting", () => {
             startPosition: new Point(startRow, 0),
             endPosition: new Point(endRow, 0),
           };
-    const layer = languageMode.rootLanguageLayer;
-    return layer.queries.highlightsQuery.captures(layer.tree.rootNode, options);
+    const groups = await editor.getGrammarQueryCaptureGroups("highlightsQuery", options);
+    return groups.find(({ grammar }) => grammar === editor.getGrammar())?.captures ?? [];
   }
 
   it("keeps unbounded containers leaf-rooted and bounded parameters structural", () => {
@@ -69,7 +69,7 @@ describe("PHP Tree-sitter highlighting", () => {
   it("parses both bare and opening-tagged fenced PHP", async () => {
     for (const source of ["$value = 1;", "<?php\n$value = 1;"]) {
       await setUp(source);
-      expect(languageMode.tree.rootNode.hasError).toBe(false);
+      expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
       editor.destroy();
       editor = null;
     }
@@ -112,7 +112,7 @@ list($first, $second) = $array;`;
   );
 }`);
 
-    const parameterCaptures = rawCaptures(2, 4).filter(
+    const parameterCaptures = (await rawCaptures(2, 4)).filter(
       (capture) =>
         capture.name === "variable.parameter.php" ||
         capture.name.startsWith("punctuation.definition.parameters."),
@@ -132,7 +132,7 @@ list($first, $second) = $array;`;
       ),
     ).toBe(true);
 
-    const arrayCaptures = rawCaptures(6, 8).filter((capture) =>
+    const arrayCaptures = (await rawCaptures(6, 8)).filter((capture) =>
       capture.name.startsWith("punctuation.definition.parameters."),
     );
     expect(arrayCaptures.every((capture) => capture.node.startPosition.row >= 6)).toBe(true);
@@ -145,7 +145,7 @@ list($first, $second) = $array;`;
     lines.push(");");
     await setUp(lines.join("\r\n"));
 
-    const tileCaptures = rawCaptures(2998, 3004);
+    const tileCaptures = await rawCaptures(2998, 3004);
     expect(tileCaptures.length).toBeLessThanOrEqual(64);
     expect(
       tileCaptures.every(
@@ -165,7 +165,7 @@ list($first, $second) = $array;`;
     for (let index = 0; index < 6000; index++) lines.push("  \\n");
     lines.push('";');
     await setUp(lines.join("\r\n"));
-    expect(languageMode.tree.rootNode.hasError).toBe(false);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
 
     const openingColumn = editor.lineTextForBufferRow(0).lastIndexOf('"');
     expect(editor.scopeDescriptorForBufferPosition([0, openingColumn]).getScopesArray()).toContain(
@@ -175,7 +175,7 @@ list($first, $second) = $array;`;
       "punctuation.definition.string.end.php",
     );
 
-    const escapes = rawCaptures(3000, 3006).filter(
+    const escapes = (await rawCaptures(3000, 3006)).filter(
       (capture) => capture.name === "constant.character.escape.php",
     );
     expect(escapes.length).toBe(6);
@@ -194,7 +194,7 @@ list($first, $second) = $array;`;
     }
     lines.push("  }", "}");
     await setUp(lines.join("\r\n"));
-    expect(languageMode.tree.rootNode.hasError).toBe(false);
+    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
 
     const methodColumn = editor.lineTextForBufferRow(3).indexOf("method_0");
     expect(editor.scopeDescriptorForBufferPosition([3, methodColumn]).getScopesArray()).toContain(
@@ -202,7 +202,7 @@ list($first, $second) = $array;`;
     );
     const startRow = 3000;
     const endRow = startRow + 6;
-    const captures = rawCaptures(startRow, endRow);
+    const captures = await rawCaptures(startRow, endRow);
     expect(captures.length).toBeLessThanOrEqual(64);
     expect(
       captures
