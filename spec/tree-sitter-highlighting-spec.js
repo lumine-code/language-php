@@ -30,8 +30,9 @@ describe("PHP Tree-sitter highlighting", () => {
             startPosition: new Point(startRow, 0),
             endPosition: new Point(endRow, 0),
           };
-    const groups = await editor.getGrammarQueryCaptureGroups("highlightsQuery", options);
-    return groups.find(({ grammar }) => grammar === editor.getGrammar())?.captures ?? [];
+    const query = await editor.getGrammar().getQuery("highlightsQuery");
+    const root = editor.getBuffer().getLanguageMode().rootLanguageLayer.tree.rootNode;
+    return query.captures(root, options);
   }
 
   it("keeps unbounded containers leaf-rooted and bounded parameters structural", () => {
@@ -69,7 +70,9 @@ describe("PHP Tree-sitter highlighting", () => {
   it("parses both bare and opening-tagged fenced PHP", async () => {
     for (const source of ["$value = 1;", "<?php\n$value = 1;"]) {
       await setUp(source);
-      expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+      expect(editor.getBuffer().getLanguageMode().rootLanguageLayer.tree.rootNode.hasError).toBe(
+        false,
+      );
       editor.destroy();
       editor = null;
     }
@@ -165,7 +168,9 @@ list($first, $second) = $array;`;
     for (let index = 0; index < 6000; index++) lines.push("  \\n");
     lines.push('";');
     await setUp(lines.join("\r\n"));
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect(editor.getBuffer().getLanguageMode().rootLanguageLayer.tree.rootNode.hasError).toBe(
+      false,
+    );
 
     const openingColumn = editor.lineTextForBufferRow(0).lastIndexOf('"');
     expect(editor.scopeDescriptorForBufferPosition([0, openingColumn]).getScopesArray()).toContain(
@@ -194,7 +199,9 @@ list($first, $second) = $array;`;
     }
     lines.push("  }", "}");
     await setUp(lines.join("\r\n"));
-    expect((await editor.getSyntaxDiagnostics()).hasError).toBe(false);
+    expect(editor.getBuffer().getLanguageMode().rootLanguageLayer.tree.rootNode.hasError).toBe(
+      false,
+    );
 
     const methodColumn = editor.lineTextForBufferRow(3).indexOf("method_0");
     expect(editor.scopeDescriptorForBufferPosition([3, methodColumn]).getScopesArray()).toContain(
