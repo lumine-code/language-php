@@ -16,3 +16,20 @@
   (#match? @injection.content "^/\\*\\*")
   (#not-match? @injection.content "^/\\*\\*\\*")
   (#set! injection.language "phpdoc"))
+
+; Annotation candidates are filtered by the target grammar.
+((string_content) @injection.owner @injection.content
+  (#set! injection.language "hyperlink")
+  (#set! injection.language-scope "none"))
+
+((comment) @injection.owner @injection.content
+  (#not-match? @injection.owner "^/\\*\\*(?!\\*)")
+  (#set! injection.language "hyperlink")
+  (#set! injection.language-scope "none")
+  (#set! injection.include-children))
+
+((comment) @injection.owner @injection.content
+  (#not-match? @injection.owner "^/\\*\\*(?!\\*)")
+  (#set! injection.language "todo")
+  (#set! injection.language-scope "none")
+  (#set! injection.include-children))

@@ -53,4 +53,38 @@ describe("PHP static language injections", () => {
     expect(htmlLayers().length).toBe(1);
     expect(htmlLayers()[0].tree.rootNode.hasError).toBe(false);
   });
+
+  it("keeps PHPDoc annotations inside the documentation layer and ordinary comments in PHP", async () => {
+    await lumine.packages.activatePackage(packagePath("language-hyperlink"));
+    await lumine.packages.activatePackage(packagePath("language-todo"));
+    await setUp(
+      "<?php\n// TODO https://example.com/plain\n" +
+        "/** TODO https://example.com/docs */\n" +
+        "/**** TODO https://example.com/ordinary */\n",
+    );
+    const annotations = editor.languageMode
+      .getAllInjectionLayers()
+      .filter((layer) => ["text.todo", "text.hyperlink"].includes(layer.grammar.scopeName));
+    expect(annotations.some((layer) => layer.depth === 2)).toBe(true);
+    const host = annotations.filter((layer) => layer.depth === 1);
+    expect(host.length).toBe(4);
+    expect(host.every((layer) => layer.getCurrentRanges()[0].start.row !== 2)).toBe(true);
+  });
+
+  it("annotates real string_content leaves while excluding PHP interpolation", async () => {
+    await lumine.packages.activatePackage(packagePath("language-hyperlink"));
+    const text = '<?php $url = "$prefix https://example.com/path";';
+    await setUp(text);
+    const links = editor.languageMode
+      .getAllInjectionLayers()
+      .filter((layer) => layer.grammar.scopeName === "text.hyperlink");
+    expect(links.length).toBe(1);
+    expect(links[0].getCurrentRanges().map((range) => editor.getTextInBufferRange(range))).toEqual([
+      " https://example.com/path",
+    ]);
+    const position = editor.getBuffer().positionForCharacterIndex(text.indexOf("/path"));
+    expect(editor.scopeDescriptorForBufferPosition(position).getScopesArray()).toContain(
+      "markup.underline.link.hyperlink",
+    );
+  });
 });
