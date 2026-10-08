@@ -2,6 +2,8 @@
 
 PHP language support.
 
+Fork of [pulsar-edit/pulsar](https://github.com/pulsar-edit/pulsar) (`packages/language-php`).
+
 ## Features
 
 - **Grammars**: provides Tree-sitter grammars built from [tree-sitter-php](https://github.com/tree-sitter/tree-sitter-php) and [tree-sitter-phpdoc](https://github.com/claytonrcarter/tree-sitter-phpdoc).
