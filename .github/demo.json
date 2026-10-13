@@ -1,0 +1,16 @@
+{
+  "title": "language-php",
+  "description": "PHP syntax highlighting in the editor.",
+  "recordedOn": "2026-10-13",
+  "sourceRevision": "449449eb35e6e2f335a09e86c18581b2c372f2dd",
+  "mode": "normal",
+  "fontSettings": "default",
+  "images": [
+    {
+      "file": "demo.png",
+      "label": "PHP syntax highlighting at the default editor font size.",
+      "width": 1100,
+      "height": 820
+    }
+  ]
+}

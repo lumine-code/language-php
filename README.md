@@ -10,6 +10,8 @@ Fork of [pulsar-edit/pulsar](https://github.com/pulsar-edit/pulsar) (`packages/l
 - **Syntax highlighting**: full grammar coverage for PHP files, including embedded HTML and PHPDoc.
 - **Snippets**: shortcuts for common PHP constructs.
 
+![PHP syntax highlighting at the default editor font size.](.github/demo.png)
+
 ## Installation
 
 To install `language-php` search for it in the Install pane of the Lumine settings, or run the command `lumine --install lumine-code/language-php`.
