@@ -1,16 +1,61 @@
 {
   "title": "language-php",
-  "description": "PHP syntax highlighting in the editor.",
-  "recordedOn": "2026-10-13",
-  "sourceRevision": "449449eb35e6e2f335a09e86c18581b2c372f2dd",
+  "description": "PHP syntax highlighting at the default editor font size.",
+  "recordedOn": "2026-10-14",
+  "sourceRevision": "e57fb8fba176db470eb34790e9a108afdc123ad8",
+  "themeSourceRevision": "14a69683b0e3238e2bc128fbfae3866c1e4ee9c6",
   "mode": "normal",
   "fontSettings": "default",
+  "scenario": "demo.js",
+  "recipeHash": "9ddf152819347d7a2f68063e7847394089471c3c8608211aacbf6232a2e1d03c",
+  "environment": {
+    "platform": "win32",
+    "arch": "x64",
+    "electron": "44.7.0",
+    "chrome": "152.0.7977.130",
+    "devicePixelRatio": 1,
+    "locale": "en-GB",
+    "fontFamily": "Fira Code, Menlo, DejaVu Sans Mono, Consolas, monospace",
+    "fontSize": 14,
+    "themes": ["one-day-syntax", "one-day-ui"]
+  },
+  "viewport": { "width": 1100, "height": 820 },
+  "cornerRadius": 10,
+  "sources": {
+    "editor": {
+      "revision": "0362a9fac7d6e153a768c0381800d6f3eb06647a",
+      "dirty": true,
+      "workingTreeHash": "1d75658a8b7d55a69c806a3786c562863bb9d5c71cbf96b3084c6a78c0d648b4"
+    },
+    "package": {
+      "revision": "e57fb8fba176db470eb34790e9a108afdc123ad8",
+      "dirty": true,
+      "workingTreeHash": "ccd127c6e0f9a1604ab445abb804a592bdc30f39f0057b72f60ce69896d99635"
+    },
+    "language-php": {
+      "revision": "e57fb8fba176db470eb34790e9a108afdc123ad8",
+      "dirty": true,
+      "workingTreeHash": "ccd127c6e0f9a1604ab445abb804a592bdc30f39f0057b72f60ce69896d99635"
+    },
+    "one-theme": {
+      "revision": "14a69683b0e3238e2bc128fbfae3866c1e4ee9c6",
+      "dirty": true,
+      "workingTreeHash": "50ec2f83a6347dd8113870992ec4eb2be4014f3d9e12213c2f51b543f1eca793"
+    }
+  },
+  "fixtures": [
+    {
+      "file": "example.php",
+      "sha256": "b7b1d1470e2723e4664ca675a8af07b3333175c41b0a16228007de2d4a27e83c"
+    }
+  ],
   "images": [
     {
       "file": "demo.png",
       "label": "PHP syntax highlighting at the default editor font size.",
       "width": 1100,
-      "height": 820
+      "height": 820,
+      "sha256": "c75c3e63d43b9c86c9ac346e68cc98b4241f607d88d2606f63523f930d4c3041"
     }
   ]
 }
