@@ -15,7 +15,7 @@
   "contentRegex": "<\\?php",
   "treeSitter": {
     "parserSource": "github:tree-sitter/tree-sitter-php/php#58d5643086ae60e93a3746cca648363ee97c8761",
-    "wasmBuildTool": "tree-sitter-cli#v0.27.0",
+    "wasmBuildTool": "tree-sitter-cli#v0.27.1",
     "grammar": "php.wasm",
     "injectionsQuery": "php-html-injections.scm"
   },

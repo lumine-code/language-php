@@ -5,7 +5,7 @@
   "injectionNames": ["phpdoc"],
   "treeSitter": {
     "parserSource": "github:claytonrcarter/tree-sitter-phpdoc#v0.1.8",
-    "wasmBuildTool": "tree-sitter-cli#v0.27.0",
+    "wasmBuildTool": "tree-sitter-cli#v0.27.1",
     "grammar": "phpdoc.wasm",
     "highlightsQuery": "phpdoc-highlights.scm",
     "injectionsQuery": "phpdoc-injections.scm"

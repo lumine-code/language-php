@@ -6,7 +6,7 @@
   "injectionNames": ["internal-php"],
   "treeSitter": {
     "parserSource": "github:tree-sitter/tree-sitter-php/php#58d5643086ae60e93a3746cca648363ee97c8761",
-    "wasmBuildTool": "tree-sitter-cli#v0.27.0",
+    "wasmBuildTool": "tree-sitter-cli#v0.27.1",
     "grammar": "php.wasm",
     "highlightsQuery": "php-shared-highlights.scm",
     "tagsQuery": "php-shared-tags.scm",
