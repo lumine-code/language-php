@@ -44,6 +44,18 @@ describe("language-php conservative indentation", () => {
     expect(editor.lineTextForBufferRow(1)).toBe("}");
   });
 
+  it("ignores an unfinished quoted brace without disabling real PHP blocks", async () => {
+    for (const scope of ["source.php", "text.html.php"]) {
+      editor.setGrammar(lumine.grammars.grammarForScopeName(scope));
+      await enter('<?php\n$value = "{', 0, 1);
+      await enter('<?php\n$value = "text {', 0, 1);
+      await enter('<?php\n$value = "{ trailing', 0, 1);
+      await enter('<?php\nfunction run() {\n  $value = "{', 2, 2);
+      await enter('<?php $value = "{"; function run() {', 2);
+      await enter("<?php\n$value = [", 2, 1);
+    }
+  });
+
   it("preserves whitespace inside multiline literals and comments when reindenting", async () => {
     const source =
       "<?php\n$text = <<<TXT\n       literal {\n raw }\nTXT;\n/* head\n     aligned\n*/";
