@@ -4,15 +4,18 @@
   "type": "tree-sitter",
   "parser": "tree-sitter-php",
   "injectionNames": ["html+php", "php-html"],
-  // Catch obvious PHP shebangs and opening tags before extension scoring.
-  "firstLineRegex": "^\\s*<\\?(?:php|PHP|=|\\s|$)|^\\#!.*(?:\\s|\\/)php\\d?",
+  // Recognize PHP tags and interpreter positions without scanning arguments.
+  "firstLineRegex": [
+    "^\\s*<\\?(?:(?:php|PHP)(?=\\s|$)|=|\\s|$)",
+    "^#![ \\t]*(?:(?:[^ \\t\\x0d\\x0a]*/)?env(?:\\.exe)?[ \\t]+(?:-S[ \\t]+)?(?:[^ \\t\\x0d\\x0a]*/)?|(?:[^ \\t\\x0d\\x0a]*/)?)php(?:-cli|-win|-cgi)?(?:\\d+(?:\\.\\d+)*)?(?:\\.exe)?(?=[ \\t\\x0d\\x0a]|$)"
+  ],
   // `install` and `profile` are Drupal's, and language-shellscript claims both
   // too — for Arch install scripts and for `~/.profile`. The first-line rules
   // separate them only when the file opens with `<?php` or a shebang, and a
   // `.profile` is sourced rather than executed so it usually has neither. That
   // leaves the two grammars on an identical score, decided by activation order.
   // A contentRegex settles the pair in both directions.
-  "contentRegex": "<\\?php",
+  "contentRegex": "<\\?(?:php|PHP)(?=\\s|$)",
   "treeSitter": {
     "parserSource": "github:tree-sitter/tree-sitter-php/php#58d5643086ae60e93a3746cca648363ee97c8761",
     "wasmBuildTool": "tree-sitter-cli#v0.27.1",

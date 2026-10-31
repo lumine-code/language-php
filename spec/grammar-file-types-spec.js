@@ -33,6 +33,53 @@ describe("PHP grammar file types", () => {
     }
   });
 
+  it("recognizes actual PHP interpreter positions and executable forms", () => {
+    for (const source of [
+      "#!/usr/bin/php",
+      "#!/usr/bin/php8",
+      "#!/usr/bin/php8.4",
+      "#!/usr/bin/env php",
+      "#!/usr/bin/env -S php -d short_open_tag=0",
+      "#!/usr/bin/env -S /opt/php8.4 -n",
+      "#!C:/php/php.exe -n",
+      "#!C:/php/php-win.exe",
+      "#!C:/php/php-cli.exe",
+      "#!C:/php/php-cgi.exe -q",
+      "#!/usr/bin/env.exe php.exe",
+      "#!/usr/bin/env.exe -S php.exe -n",
+      "#!/usr/bin/php\r\necho 1;",
+    ]) {
+      expect(lumine.grammars.grammarMatchesPrefix(grammar, source)).withContext(source).toBe(true);
+      expect(lumine.grammars.selectGrammar("extensionless-php", source).scopeName)
+        .withContext(source)
+        .toBe("text.html.php");
+    }
+  });
+
+  it("rejects wrapper arguments and interpreter names that only start with php", () => {
+    for (const source of [
+      "#!/usr/bin/python /tmp/php",
+      "#!/usr/bin/env printf php",
+      "#!/usr/bin/env -S printf /tmp/php",
+      "#!/usr/bin/phpish",
+      "#!/usr/bin/phpstorm",
+      "#!/usr/bin/php.exe-helper",
+      "#!/usr/bin/php8.4-wrapper",
+    ]) {
+      expect(lumine.grammars.grammarMatchesPrefix(grammar, source)).withContext(source).toBe(false);
+      expect(lumine.grammars.selectGrammar("extensionless-php", source).scopeName)
+        .withContext(source)
+        .not.toBe("text.html.php");
+    }
+  });
+
+  it("requires the long PHP tag to end at a token boundary", () => {
+    for (const source of ["<?php", "<?php echo 1;", "<?PHP echo 1;", "<?=1;", "<? echo 1;"])
+      expect(lumine.grammars.grammarMatchesPrefix(grammar, source)).withContext(source).toBe(true);
+    for (const source of ["<?phpish", "<?PHPword", "<?php-helper"])
+      expect(lumine.grammars.grammarMatchesPrefix(grammar, source)).withContext(source).toBe(false);
+  });
+
   it("scores a contested file higher with PHP contents than without", () => {
     for (const filePath of CONTESTED) {
       const withPhp = lumine.grammars.getGrammarScore(grammar, filePath, DRUPAL);
