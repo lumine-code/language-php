@@ -15,7 +15,7 @@
   // opening `<?php` tag. The mixed HTML/PHP root keeps its own explicit names.
   "injectionNames": ["php", "php-only", "php_only"],
   "treeSitter": {
-    "parserSource": "github:tree-sitter/tree-sitter-php/php_only#58d5643086ae60e93a3746cca648363ee97c8761",
+    "parserSource": "github:tree-sitter/tree-sitter-php/php_only#c1e13490bd656b8869cd47e6f74997ed46750a08",
     "wasmBuildTool": "tree-sitter-cli#v0.27.2",
     // A distinct basename is load-bearing: a build fans out to every config
     // sharing both `parserSource` and the wasm's basename, so reusing

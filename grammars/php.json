@@ -5,7 +5,7 @@
   // Internal PHP is an exact target, distinct from the root HTML/PHP grammar.
   "injectionNames": ["internal-php"],
   "treeSitter": {
-    "parserSource": "github:tree-sitter/tree-sitter-php/php#58d5643086ae60e93a3746cca648363ee97c8761",
+    "parserSource": "github:tree-sitter/tree-sitter-php/php#c1e13490bd656b8869cd47e6f74997ed46750a08",
     "wasmBuildTool": "tree-sitter-cli#v0.27.2",
     "grammar": "php.wasm",
     "highlightsQuery": "php-shared-highlights.scm",
